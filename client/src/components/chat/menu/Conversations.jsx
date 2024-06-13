@@ -14,18 +14,20 @@ const test = styled(Divider)`
   background: #e9edef;
 `
 
-export const Conversations = () => {
+export const Conversations = ({text}) => {
   const [users,setUser] = useState([]);
   const {account} = useContext(AccountContext);
 
   useEffect(()=>{
     const fetchData = async()=>{
       let res = await getUsers();
-      console.log("res",res)
-      setUser(res);
+      const filterData = res.filter((val)=> val.name.toLowerCase().includes(text.toLowerCase()))
+      
+      console.log("filterData",filterData)
+      setUser(filterData);
     }
     fetchData();
-  },[])
+  },[text])
 
   console.log("users",users)
   

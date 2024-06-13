@@ -4,6 +4,7 @@ import { AppBar, Toolbar, styled, Box } from "@mui/material";
 import ChatDialoge from "./chat/ChatDialoge";
 import { AccountContext } from "../context/AccountProvider";
 
+
 const Component = styled(Box)`
   height: 100vh;
   background: #dcdcdc;
@@ -22,6 +23,10 @@ const Header = styled(AppBar)`
 
 const Messenger = () => {
   const { account } = useContext(AccountContext);
+  console.log("account",account)
+
+ 
+
   return (
     <Component>
       {account ? (
