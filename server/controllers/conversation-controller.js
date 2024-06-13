@@ -11,10 +11,25 @@ export const newConversation = async(req,res)=>{
         const newConversation = new Conversation({
             members:[senderId,receiverId]
         });
-        newConversation.save();
+        await newConversation.save();
         return res.status(200).json("Conversation saved successfully")
 
     }catch(err){
         console.log("Err in API",err.message)
+        return res.status(500).json(err.message)
     }
 }
+
+export const getConversation = async(req,res)=>{
+    try{
+        const senderId = req.body.senderId;
+        const receiverId = req.body.receiverId
+       let conversation =  await Conversation.findOne({members:{$all: [receiverId,senderId]}});
+       return res.status(200).json(conversation);
+       
+    }catch(err){
+        return res.status(500).json(err.message)
+    }
+}
+
+
