@@ -5,6 +5,7 @@ const url = 'http://localhost:8000';
 export const addUser  = async(data)=>{
     try{
        const response = await axios.post(`${url}/add`,data);
+       return response.data;
     }catch(error){
         console.log("Error in API",error.message)
     }
@@ -47,6 +48,14 @@ export const getMessage = async(id)=>{
     try{
         const response = await axios.get(`${url}/message/get/${id}`);
        return response.data;
+    }catch(err){
+        console.log("Error while calling ",err.message)
+    }
+}
+export const uploadFile = async(data)=>{
+    try{
+        const response = await axios.post(`${url}/file/upload`,data);
+       return response;
     }catch(err){
         console.log("Error while calling ",err.message)
     }
