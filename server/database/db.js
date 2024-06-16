@@ -6,14 +6,19 @@ dotenv.config();
 const URL= process.env.MONGOURI
 
 
-const Connection = async()=>{
-    try{
-       await mongoose.connect(URL)
-        console.log("connected")
-    }catch(error){
-        
-        console.log("Error while connecting", error.message)
+
+const Connection = async () => {
+    try {
+        await mongoose.connect(URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+            useCreateIndex: true
+        });
+        console.log("Connected to MongoDB successfully.");
+    } catch (error) {
+        console.log("Error while connecting to MongoDB:", error.message);
     }
-}
+};
 
 export default Connection;

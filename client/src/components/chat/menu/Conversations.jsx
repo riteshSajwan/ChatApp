@@ -16,7 +16,7 @@ const test = styled(Divider)`
 
 export const Conversations = ({text}) => {
   const [users,setUser] = useState([]);
-  const {account} = useContext(AccountContext);
+  const {account,socket,setActiveUsers} = useContext(AccountContext);
 
   useEffect(()=>{
     const fetchData = async()=>{
@@ -28,6 +28,16 @@ export const Conversations = ({text}) => {
     }
     fetchData();
   },[text])
+
+  //new conversation socket
+  useEffect(() => {
+    socket.current.emit('addUser', account);
+    socket.current.on('getUsers',users=>{
+      console.log("setActiveUsers",users)
+      setActiveUsers(users);
+    })
+
+}, [account])
 
   console.log("users",users)
   
